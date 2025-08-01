@@ -1,0 +1,46 @@
+{
+  "title": "ISTA Online",
+  "config": {
+    "step": {
+      "user": {
+        "title": "ISTA Online account",
+        "description": "Enter your ISTA credentials. Two-factor authentication must be disabled on the ISTA account for this integration to work.",
+        "data": {
+          "country": "Country",
+          "username": "Username",
+          "password": "Password"
+        }
+      },
+      "reauth": {
+        "title": "Reauthenticate ISTA Online account",
+        "description": "Your credentials are invalid or expired. Provide updated username and password. Two-factor authentication must be disabled.",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      },
+      "init": {
+        "title": "Update ISTA Online credentials",
+        "description": "Change username, password or country. Two-factor authentication must be disabled.",
+        "data": {
+          "country": "Country",
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Update ISTA Online credentials",
+        "description": "Change username, password or country. Two-factor authentication must be disabled.",
+        "data": {
+          "country": "Country",
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    }
+  }
+}
