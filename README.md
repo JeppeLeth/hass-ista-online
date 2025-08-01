@@ -68,6 +68,11 @@ Diagnostic sensors:
 - Meter text
 - Reading date
 
+Screenshot:
+
+<img width="661" height="859" alt="screenshot" src="https://github.com/user-attachments/assets/9c9e25b0-cff4-4eaf-8480-b4cf6624094e" />
+
+
 ## Device Information
 
 Each meter creates a device with:
