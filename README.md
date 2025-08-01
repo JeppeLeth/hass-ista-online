@@ -1,3 +1,5 @@
+[![hass-gardena-smart-system](https://img.shields.io/github/release/JeppeLeth/hass-ista-online.svg?1)](https://github.com/JeppeLeth/hass-ista-online)
+
 # ISTA Online Integration for Home Assistant
 
 **Repository:** https://github.com/JeppeLeth/hass-ista-online
