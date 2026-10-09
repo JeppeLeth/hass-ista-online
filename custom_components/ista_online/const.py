@@ -2,7 +2,7 @@ DOMAIN = "ista_online"
 PLATFORMS = ["sensor"]
 
 COUNTRY_OPTIONS = {
-    "Denmark": "https://service.istaonlinebeta.dk"
+    "Denmark": "https://prod.istaonlinebeta.dk"
 }
 
 DEFAULT_COUNTRY = "Denmark"
