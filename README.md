@@ -13,6 +13,8 @@ Each meter becomes a device in Home Assistant.
 Sensors expose the latest reading and unit.  
 Device attributes include address and city.
 
+**Meter data delayed:** Be aware that your data from ISTA is not always real-time. The data in this integration is the same as in the app from ISTA, which means that for many users the recent meter readings are 3-4 days delayed. This is not an issue with the integration, but the fault of ISTA's infrequent measurement updates.
+
 ## Table of Contents
 
 - [Installation](#installation)
