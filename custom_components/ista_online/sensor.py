@@ -109,11 +109,13 @@ class MeterSensor(CoordinatorEntity, SensorEntity):
     def device_info(self) -> DeviceInfo:
         serial = self._meter.get("METER_NO") or self._meter.get("METER_ID")
         model = self._meter.get("METCAT_LABEL") or ""
+        meter_text = self._meter.get("MeterText") or ""
+        name = f"{meter_text} - Meter {serial}" if meter_text else f"Meter {serial}"
         return DeviceInfo(
             identifiers={(DOMAIN, str(serial))},
             manufacturer="ISTA",
             serial_number=serial,
-            name=f"Meter {serial}",
+            name=name,
             model=model,
         )
 
@@ -176,11 +178,13 @@ class MeterConsumptionSensor(CoordinatorEntity, SensorEntity):
     def device_info(self) -> DeviceInfo:
         serial = self._meter.get("METER_NO") or self._meter.get("METER_ID")
         model = self._meter.get("METCAT_LABEL") or ""
+        meter_text = self._meter.get("MeterText") or ""
+        name = f"{meter_text} - Meter {serial}" if meter_text else f"Meter {serial}"
         return DeviceInfo(
             identifiers={(DOMAIN, str(serial))},
             manufacturer="ISTA",
             serial_number=serial,
-            name=f"Meter {serial}",
+            name=name,
             model=model,
         )
 
@@ -247,11 +251,13 @@ class MeterDiagnosticSensor(CoordinatorEntity, SensorEntity):
     def device_info(self) -> DeviceInfo:
         serial = self._meter.get("METER_NO") or self._meter.get("METER_ID")
         model = self._meter.get("METCAT_LABEL") or ""
+        meter_text = self._meter.get("MeterText") or ""
+        name = f"{meter_text} - Meter {serial}" if meter_text else f"Meter {serial}"
         return DeviceInfo(
             identifiers={(DOMAIN, str(serial))},
             manufacturer="ISTA",
             serial_number=serial,
-            name=f"Meter {serial}",
+            name=name,
             model=model,
         )
 
@@ -301,11 +307,13 @@ class UserInfoDiagnosticSensor(CoordinatorEntity, SensorEntity):
     def device_info(self) -> DeviceInfo:
         serial = self._meter.get("METER_NO") or self._meter.get("METER_ID")
         model = self._meter.get("METCAT_LABEL") or ""
+        meter_text = self._meter.get("MeterText") or ""
+        name = f"{meter_text} - Meter {serial}" if meter_text else f"Meter {serial}"
         return DeviceInfo(
             identifiers={(DOMAIN, str(serial))},
             manufacturer="ISTA",
             serial_number=serial,
-            name=f"Meter {serial}",
+            name=name,
             model=model,
         )
 
