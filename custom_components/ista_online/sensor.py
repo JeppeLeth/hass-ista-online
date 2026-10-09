@@ -70,6 +70,8 @@ def _parse_date_string(value: Any) -> Optional[datetime]:
 
 
 class MeterSensor(CoordinatorEntity, SensorEntity):
+    _attr_has_entity_name = True
+
     def __init__(self, coordinator, meter: dict, user_info: dict):
         super().__init__(coordinator)
         self._meter = meter or {}
@@ -139,6 +141,8 @@ class MeterSensor(CoordinatorEntity, SensorEntity):
 
 
 class MeterConsumptionSensor(CoordinatorEntity, SensorEntity):
+    _attr_has_entity_name = True
+
     def __init__(self, coordinator, meter: dict, user_info: dict):
         super().__init__(coordinator)
         self._meter = meter or {}
@@ -207,6 +211,8 @@ class MeterConsumptionSensor(CoordinatorEntity, SensorEntity):
 
 
 class MeterDiagnosticSensor(CoordinatorEntity, SensorEntity):
+    _attr_has_entity_name = True
+
     def __init__(self, coordinator, meter: dict, user_info: dict, display_name: str, field_key: str):
         super().__init__(coordinator)
         self._meter = meter or {}
@@ -221,8 +227,7 @@ class MeterDiagnosticSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def name(self) -> str:
-        serial = self._meter.get("METER_NO") or self._meter.get("METER_ID")
-        return f"Meter {serial} {self._display_name}"
+        return self._display_name
 
     @property
     def native_value(self) -> Any:
@@ -272,6 +277,8 @@ class MeterDiagnosticSensor(CoordinatorEntity, SensorEntity):
 
 
 class UserInfoDiagnosticSensor(CoordinatorEntity, SensorEntity):
+    _attr_has_entity_name = True
+
     def __init__(self, coordinator, meter: dict, user_info: dict, display_name: str, user_field_key: str):
         super().__init__(coordinator)
         self._meter = meter or {}
@@ -288,8 +295,7 @@ class UserInfoDiagnosticSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def name(self) -> str:
-        serial = self._meter.get("METER_NO") or self._meter.get("METER_ID")
-        return f"Meter {serial} {self._display_name}"
+        return self._display_name
 
     @property
     def native_value(self) -> Any:
