@@ -1,103 +1,80 @@
-[![hass-gardena-smart-system](https://img.shields.io/github/release/JeppeLeth/hass-ista-online.svg?1)](https://github.com/JeppeLeth/hass-ista-online)
+[![GitHub release](https://img.shields.io/github/v/release/JeppeLeth/hass-ista-online?style=flat-square)](https://github.com/JeppeLeth/hass-ista-online/releases)
+[![Downloads](https://img.shields.io/github/downloads/JeppeLeth/hass-ista-online/total?style=flat-square)](https://github.com/JeppeLeth/hass-ista-online/releases)
+[![HACS Integration](https://img.shields.io/badge/HACS-Integration-41BDF5?style=flat-square)](https://hacs.xyz)
 
-# ISTA Online Integration for Home Assistant
+# ISTA Online for Home Assistant 🇩🇰
 
-**Repository:** https://github.com/JeppeLeth/hass-ista-online
+Bring your **ISTA Online (Denmark)** heating, water and energy meter readings into Home Assistant.
 
-## Overview
+> **Unofficial integration.** This project is not affiliated with, endorsed by, or supported by ista. It is a community project.
+>
+> The official **ista EcoTrend** integration built into Home Assistant does **not** work in Denmark — it targets ista's German service. This integration fills that gap by talking to the Danish **ISTA Online** service instead.
 
-Custom integration (HACS-ready) for ISTA Denmark.  
-Allows users to authenticate with username/password (two-factor authentication **must be disabled**), fetch user info and meters.
+Each of your meters appears as a device in Home Assistant, with sensors for its latest reading and consumption.
 
-Each meter becomes a device in Home Assistant.  
-Sensors expose the latest reading and unit.  
-Device attributes include address and city.
+## ⚠️ Your data is delayed
 
-**Meter data delayed:** Be aware that your data from ISTA is not always real-time. The data in this integration is the same as in the app from ISTA, which means that for many users the recent meter readings are 3-4 days delayed. This is not an issue with the integration, but the fault of ISTA's infrequent measurement updates.
-
-## Table of Contents
-
-- [Installation](#installation)
-  - [Installation through HACS](#installation-through-hacs)
-  - [Manual installation](#manual-installation)
-- [Configuration](#configuration)
-- [Entities](#entities)
-- [Device Information](#device-information)
-- [Requirements & Notes](#requirements--notes)
-- [Development](#development)
+ISTA does not report in real time. This integration shows exactly the same data as the official ISTA app — which for most users means meter readings are **3–5 days behind**, and new readings arrive in batches. This is how ISTA publishes the data, not a limitation of the integration.
 
 ## Installation
 
-### Installation through HACS
+This integration is installed through [HACS](https://hacs.xyz).
 
-1. In Home Assistant, go to **HACS > Integrations**.
-2. Click the three dots in the top-right and select **Custom repositories**.
-3. Add the URL of this repository, choose type **Integration**, and click **ADD**.
-4. Search for **ISTA Online** in HACS and install it.
-5. Restart Home Assistant.
-6. Go to **Configuration > Integrations** and add **ISTA Online** via the UI (uses config flow).
+1. Open **HACS** in Home Assistant.
+2. Search for **ISTA Online**.
+3. Select it and click **Download**.
+4. **Restart** Home Assistant.
 
-### Manual installation
+[![Open in HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=JeppeLeth&repository=hass-ista-online&category=integration)
 
-Copy the `custom_components/ista_online` directory into your Home Assistant configuration's `custom_components` directory:
+<details>
+<summary>Don't see it in the HACS search?</summary>
 
-```bash
-mkdir -p /config/custom_components
-cp -R custom_components/ista_online /config/custom_components/
-```
+Add it as a custom repository: in HACS, open the **⋮** menu → **Custom repositories**, enter
+`https://github.com/JeppeLeth/hass-ista-online`, choose category **Integration**, click **Add** — then search for **ISTA Online** again.
 
-Then restart Home Assistant and configure the integration through the UI.
+Prefer to install by hand? See [DEVELOPMENT.md](DEVELOPMENT.md#manual-installation).
+</details>
 
-## Configuration
+## Setup
 
-The integration uses a UI config flow. Required fields:
-- **Country**: currently only `Denmark` (defines base URL)
-- **Username / Password**: credentials for ISTA Denmark account (two-factor authentication must be disabled)
+After installing and restarting:
 
-## Entities
+1. Go to **Settings → Devices & Services → Add Integration**.
+2. Search for **ISTA Online** and follow the prompts.
 
-For each meter:
-- Sensor for last meter reading (`Last Meter Reading`) with entity ID like `ista_meter_{METER_NO}_last_meter_reading`
-- Sensor for last meter consumption (`Last Meter Consumption`) with entity ID like `ista_meter_{METER_NO}_last_meter_consumption`
+[![Add Integration](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=ista_online)
 
-Diagnostic sensors:
-- Activation date
-- Deactivation date
-- Message
-- Headline
-- Meter type
-- Meter code
-- Meter text
-- Reading date
+You'll be asked for:
 
-Screenshot:
+| Field | Value |
+|-------|-------|
+| **Country** | Denmark |
+| **Username** | Your ISTA Online username |
+| **Password** | Your ISTA Online password |
 
-<img width="661" height="859" alt="screenshot" src="https://github.com/user-attachments/assets/9c9e25b0-cff4-4eaf-8480-b4cf6624094e" />
+> **Two-factor authentication must be turned off** on your ISTA account for the integration to sign in.
 
+## What you get
 
-## Device Information
+For each meter, a device named like **`Energi - Meter 708226610`** with:
 
-Each meter creates a device with:
-- **Serial**: `METER_NO`
-- **Device type/model**: `METCAT_LABEL`
-- **Address** and **city** attached as attributes.
+- **Last Meter Reading** — the latest absolute meter value (kWh, m³, …)
+- **Last Meter Consumption** — consumption since the previous reading
+- Diagnostic sensors: meter type, meter text, reading date, activation/deactivation date, and your address
 
-## Requirements & Notes
+<img width="661" alt="ISTA Online device in Home Assistant" src="https://github.com/user-attachments/assets/9c9e25b0-cff4-4eaf-8480-b4cf6624094e" />
 
-- Requires Home Assistant **2023.12.0** or newer.
-- Python dependency: `requests`
-- Two-factor authentication must be disabled on the ISTA account for this integration to work.
-- Update `manifest.json` and `hacs.json` fields such as repository URLs, codeowners, and issue tracker to reflect your actual GitHub repository.
+## Troubleshooting
 
-## Development
+- **Can't sign in?** Make sure two-factor authentication is disabled, and that your username/password work in the official ISTA app.
+- **Readings look old?** That's expected — see [the delay note above](#️-your-data-is-delayed).
+- **Need logs?** See [DEVELOPMENT.md](DEVELOPMENT.md#debug-logging).
 
-To enable debug logging in Home Assistant's `configuration.yaml`:
+## Contributing & development
 
-```yaml
-logger:
-  default: info
-  logs:
-    custom_components.ista_online: debug
-```
+Bug reports and pull requests are welcome — please use the [issue tracker](https://github.com/JeppeLeth/hass-ista-online/issues). Technical details (architecture, the ISTA API, manual install, debug logging) live in [DEVELOPMENT.md](DEVELOPMENT.md).
 
-After a restart, detailed log output will appear in `home-assistant.log`.
+## Disclaimer
+
+Provided "as is", with no warranty. "ISTA" and "EcoTrend" are trademarks of their respective owners; this project is an independent community integration and is not affiliated with ista.
