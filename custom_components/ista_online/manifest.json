@@ -8,8 +8,6 @@
   "documentation": "https://github.com/JeppeLeth/hass-ista-online/blob/main/README.md",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/JeppeLeth/hass-ista-online/issues",
-  "requirements": [
-    "requests"
-    ],
+  "requirements": [],
   "version": "0.1.3"
 }
